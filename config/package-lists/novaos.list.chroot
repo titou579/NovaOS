@@ -1,0 +1,48 @@
+# Bureau et localisation
+xfce4
+xfce4-goodies
+xfce4-whiskermenu-plugin
+xfce4-terminal
+lightdm
+lightdm-gtk-greeter
+locales
+fonts-noto
+fonts-noto-color-emoji
+fonts-dejavu
+arc-theme
+papirus-icon-theme
+
+# Réseau et navigation
+firefox-esr
+network-manager
+network-manager-gnome
+ca-certificates
+
+# Applications utiles
+libreoffice-writer
+libreoffice-calc
+libreoffice-impress
+vlc
+ristretto
+mousepad
+thunar-archive-plugin
+file-roller
+evince
+pavucontrol
+
+# Outils et sécurité
+ufw
+apparmor
+apparmor-utils
+unattended-upgrades
+gufw
+curl
+wget
+htop
+fastfetch
+gparted
+
+# Installation et utilitaires Debian Live
+live-boot
+live-config
+live-config-systemd

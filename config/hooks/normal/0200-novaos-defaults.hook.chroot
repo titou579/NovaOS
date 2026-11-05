@@ -1,0 +1,34 @@
+#!/bin/sh
+set -e
+
+# Locale française par défaut.
+if ! grep -q '^fr_FR.UTF-8 UTF-8' /etc/locale.gen; then
+  echo 'fr_FR.UTF-8 UTF-8' >> /etc/locale.gen
+fi
+locale-gen fr_FR.UTF-8 || true
+update-locale LANG=fr_FR.UTF-8 || true
+
+# Marquer les lanceurs fournis comme fiables pour le bureau XFCE.
+find /etc/skel/Desktop -maxdepth 1 -name '*.desktop' -exec chmod 755 {} \; 2>/dev/null || true
+
+# Ne pas activer de connexion distante dans l'image de base.
+systemctl disable ssh.service 2>/dev/null || true
+
+# Pare-feu : trafic entrant bloqué, sorties autorisées.
+ufw --force default deny incoming || true
+ufw --force default allow outgoing || true
+if [ -f /etc/ufw/ufw.conf ]; then
+  sed -i 's/^ENABLED=.*/ENABLED=yes/' /etc/ufw/ufw.conf
+fi
+systemctl enable ufw.service 2>/dev/null || true
+
+# Mises à jour de sécurité automatiques.
+mkdir -p /etc/apt/apt.conf.d
+cat > /etc/apt/apt.conf.d/20auto-upgrades <<'APTCONF'
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+APTCONF
+systemctl enable apt-daily-upgrade.timer 2>/dev/null || true
+
+# AppArmor activé au démarrage lorsque le noyau/hyperviseur le permet.
+systemctl enable apparmor.service 2>/dev/null || true

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Applications
+Comment=Parcourir les applications installées
+Exec=xfce4-appfinder
+Icon=applications-all
+Terminal=false
+Categories=Utility;

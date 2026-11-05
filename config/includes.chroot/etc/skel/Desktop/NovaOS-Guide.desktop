@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Guide NovaOS
+Comment=Lire le guide de démarrage
+Exec=firefox-esr file:///usr/share/doc/novaos/README.html
+Icon=help-about
+Terminal=false
+Categories=Help;

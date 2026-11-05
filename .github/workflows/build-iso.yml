@@ -1,0 +1,40 @@
+name: Construire NovaOS ISO
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-latest
+    container:
+  image: debian:trixie
+  options: --privileged
+    timeout-minutes: 360
+    steps:
+      - name: Préparer Git pour le téléchargement des sources
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends git ca-certificates
+
+      - name: Récupérer les sources
+        uses: actions/checkout@v4
+
+      - name: Construire l'image ISO
+        run: |
+          chmod +x build.sh test-source.sh config/hooks/normal/0200-novaos-defaults.hook.chroot
+          ./test-source.sh
+          ./build.sh
+
+      - name: Publier l'ISO comme artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NovaOS-0.2-amd64-ISO
+          path: |
+            build/NovaOS-0.2-amd64.iso
+            build/SHA256SUMS
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7

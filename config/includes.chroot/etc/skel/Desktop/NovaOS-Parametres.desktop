@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Paramètres du système
+Comment=Configurer NovaOS
+Exec=xfce4-settings-manager
+Icon=preferences-system
+Terminal=false
+Categories=Settings;
