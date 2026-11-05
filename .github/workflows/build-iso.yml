@@ -1,6 +1,8 @@
 name: Construire NovaOS ISO
 
 on:
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
 
 permissions:
@@ -10,8 +12,8 @@ jobs:
   build-iso:
     runs-on: ubuntu-latest
     container:
-  image: debian:trixie
-  options: --privileged
+      image: debian:trixie
+      options: --privileged
     timeout-minutes: 360
     steps:
       - name: Préparer Git pour le téléchargement des sources
